@@ -13,7 +13,7 @@ from conclusions, and commit the exact exported workflow JSON beside the record.
 
 ## Hardware
 
-- Hardware report: `bash /mnt/ssd/Repos/comfyui-image-benchmarks/src/hardware_details.sh .venv/bin/python` (from the ComfyUI root)
+- Hardware report: `bash /mnt/ssd/Repos/comfyui-image-bench-qwen-2_1/src/hardware_details.sh .venv/bin/python` (from the ComfyUI root)
 - GPU model and VRAM:
 - Driver:
 - CPU:
@@ -48,7 +48,7 @@ from conclusions, and commit the exact exported workflow JSON beside the record.
 - Workflow JSON:
 - Workflow JSON SHA-256 and upstream source:
 - Input image files and SHA-256 (if any):
-- Prompt and negative prompt:
+- Exact submitted prompt and negative prompt:
 - Seed:
 - Width and height:
 - Batch size:

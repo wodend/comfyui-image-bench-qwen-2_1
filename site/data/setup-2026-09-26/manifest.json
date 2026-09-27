@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-26",
+  "scope": "Current setup snapshot, not a contemporaneous inventory of the first image generation",
+  "comfyui_commit": "b5cc8830279eae909a59de030af1e50761c36751",
+  "comfyui_worktree": "Untracked run_comfyui.sh and setup_comfyui.sh; no tracked changes",
+  "files": {
+    "python-packages.txt": "ae555bfebcdba0712511eb433e187bba6b8d1ba69d82c08f597d709c79473f6f",
+    "requirements.txt": "f43b395adca54467075a15067e59f6ae0d188b275e379474e3be24de52dbc18d",
+    "run_comfyui.sh": "6025cce8dbe93d7b2f061b4fbb001ef22996bb84ac826c0a98214336df1dfe34",
+    "setup_comfyui.sh": "7f1eabbd9b418db05dc4f3a67a96d25a8834cd757013084da26de092d557db4c"
+  }
+}

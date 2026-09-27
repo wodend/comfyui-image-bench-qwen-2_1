@@ -1,0 +1,25 @@
+{
+  "path_base": "site/",
+  "files": {
+    "assets/images/t2i-realistic-character/qwen-image-2-1/output-001.png": {
+      "sha256": "79e77e7b807182fbf3c5217aed73463bd6dc1ac054393a86142cb3c4cbcd845e",
+      "bytes": 2284826
+    },
+    "assets/images/t2i-realistic-character/chatgpt/output-001.png": {
+      "sha256": "be476b09b503b7d03be304f6c5d98f4f693c4dd814687400a97dadbc83260755",
+      "bytes": 1900528
+    },
+    "data/t2i-realistic-character/workflow.json": {
+      "sha256": "c65bead33f79f6d9c163efbd55421ceec28fb2438dd7de5a5c4dab8eb33d780e",
+      "bytes": 35308
+    },
+    "data/t2i-realistic-character/workflow-api.json": {
+      "sha256": "f204b495090368350d206d5592ee102a71235f4243bdabfff9ad95524d253b91",
+      "bytes": 2968
+    },
+    "data/t2i-realistic-character/prompt.json": {
+      "sha256": "74051f7eb028150595aca30f3e8ee2318a158da430714440ce0e557075944fd2",
+      "bytes": 481
+    }
+  }
+}

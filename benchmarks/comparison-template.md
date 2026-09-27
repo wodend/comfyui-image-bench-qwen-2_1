@@ -4,13 +4,11 @@ Describe the task and identify the source of each model label. Link a completed 
 
 ### Prompt
 
-ChatGPT was used to generate the prompts used.
-
 Include the exact shared submitted prompt. For I2I, include input images and hashes.
 
 ### Results
 
-Copy this HTML into `site/index.md`, replacing paths, dimensions, labels, and descriptions:
+Copy this HTML into `site/bench/index.md`, replacing paths, dimensions, labels, and descriptions:
 
 ```html
 <div class="comparison" aria-label="Task comparison">
@@ -25,6 +23,11 @@ Copy this HTML into `site/index.md`, replacing paths, dimensions, labels, and de
 </div>
 ```
 
+<details markdown="1">
+<summary>Run settings and reproduction artifacts</summary>
+
 ### Recorded settings
 
 Record settings for both models, identify missing values, and link the exact workflow, environment lock, prompts, input images, and SHA-256 manifest under `data/<test-id>/`.
+
+</details>

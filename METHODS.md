@@ -1,8 +1,27 @@
-# ComfyUI and Python setup
+# Methods context
 
-Snapshot checked on 2026-09-26 from the separate ComfyUI checkout. The checkout is at [`b5cc8830279eae909a59de030af1e50761c36751`](https://github.com/Comfy-Org/ComfyUI/commit/b5cc8830279eae909a59de030af1e50761c36751), with untracked setup and launcher scripts. CUDA availability was verified outside the sandbox. This describes the current host; a complete environment lock for the first comparison has not yet been archived.
+This file is the source of truth for the Python environment, model setup and ComfyUI operation. The public block is rendered as the reader-facing methods page. The remaining sections are agent/operator instructions and are not published as site pages. Preserve the captured scripts as historical evidence; `src/` holds the maintained recipes.
 
-## Verified environment
+<!-- public:start -->
+# Benchmark methods
+
+We compare Qwen Image 2.1 running locally in ComfyUI with ChatGPT as a control. Both systems receive the same prompt. Text to image (T2I) tests start from text; image to image (I2I) tests also use supplied reference images.
+
+## Prompts and comparisons
+
+ChatGPT was used to generate the prompts used.
+
+Each comparison shows the submitted prompt above the original outputs. The images appear at equal width with their original aspect ratios, and can be opened at full resolution. This is a visual comparison; timings or scored conclusions are included only when recorded.
+
+## ComfyUI configuration
+
+Qwen runs begin with the [official ComfyUI Qwen Image 2.1 template](https://comfy.org/workflows/bb7e03924a5c-bb7e03924a5c/). The local setup uses INT8 ConvRot diffusion and text encoder weights, a BF16 VAE, and ComfyUI’s `--lowvram` launch option. The first T2I comparison uses 25 steps, Euler sampling, the simple scheduler, CFG 1, and a 2:3 output at approximately 2 megapixels. Exact settings accompany each comparison.
+
+The checked ComfyUI revision is [`b5cc8830279eae909a59de030af1e50761c36751`](https://github.com/Comfy-Org/ComfyUI/commit/b5cc8830279eae909a59de030af1e50761c36751).
+
+## Python environment
+
+The following environment was verified on **2026-09-26**. See [hardware](hardware/) for the host specifications.
 
 | Component | Detail |
 | --- | --- |
@@ -17,15 +36,39 @@ Snapshot checked on 2026-09-26 from the separate ComfyUI checkout. The checkout 
 | torchaudio | 2.11.0+cu130 |
 | Package dependency check | OK |
 
-## Archived current setup
+## Reproducibility
 
-The [resolved Python package inventory](data/setup-2026-09-26/python-packages.txt), [ComfyUI requirements](data/setup-2026-09-26/requirements.txt), [actual launcher](data/setup-2026-09-26/run_comfyui.sh), [actual setup script](data/setup-2026-09-26/setup_comfyui.sh), and [revision and SHA-256 manifest](data/setup-2026-09-26/manifest.json) were captured from the current checkout on 2026-09-26. These are current setup artifacts, not proof of the environment at the moment the first image was generated. The actual setup script is retained separately from this repository’s maintained setup recipe.
+Original images, submitted prompts, workflow exports and SHA-256 manifests accompany the [comparisons](bench/). A run’s record distinguishes settings recovered from image metadata from values reported by the operator. Missing measurements remain marked as unrecorded.
 
-To rebuild the captured package set in a fresh Python 3.14 environment, install `python-packages.txt` using `--extra-index-url https://download.pytorch.org/whl/cu130`, then verify dependencies and CUDA. Archive fresh reports with each future run.
+The current setup has an archived [package inventory](data/setup-2026-09-26/python-packages.txt), [requirements](data/setup-2026-09-26/requirements.txt), [launcher](data/setup-2026-09-26/run_comfyui.sh), [setup script](data/setup-2026-09-26/setup_comfyui.sh), and [revision and hash manifest](data/setup-2026-09-26/manifest.json). This snapshot describes the current setup, not necessarily the environment at the moment the first images were generated.
 
-## Official workflow
+<details markdown="1">
+<summary>Model files and reference hashes</summary>
 
-Benchmarks use the [official ComfyUI Qwen Image 2.1 template](https://comfy.org/workflows/bb7e03924a5c-bb7e03924a5c/). The first comparison uses the INT8 models below, a 2:3 resolution at 2 megapixels, and 25 steps. Its exact workflow and API graph are archived on the comparison page.
+| File | SHA-256 | Official source |
+| --- | --- | --- |
+| `qwen_image_2.1_int8_convrot.safetensors` | `cb74113cb03faecd79611b01fd7fd642f0aa60d6f0b95086abee214d75eaa57d` | [Diffusion model](https://huggingface.co/Comfy-Org/Qwen-Image-2.1/blob/main/diffusion_models/qwen_image_2.1_int8_convrot.safetensors) |
+| `qwen3vl_8b_int8_convrot.safetensors` | `8bfd0f6e12abf2d2d697ecc888e5e90b0d6741d6708f05799f53afa560452e8f` | [Text encoder](https://huggingface.co/Comfy-Org/Qwen-Image-2.1/blob/main/text_encoders/qwen3vl_8b_int8_convrot.safetensors) |
+| `qwen_image_2.1_vae_bf16.safetensors` | `bb21f7473051e1ac368515dd3f2e15cd44d7a11748ee8823e1ddca3e4876b7c9` | [VAE](https://huggingface.co/Comfy-Org/Qwen-Image-2.1/blob/main/vae/qwen_image_2.1_vae_bf16.safetensors) |
+
+These are upstream reference hashes. Per-run checks of the local weights should be retained with measured results.
+
+</details>
+<!-- public:end -->
+
+## Inspect the benchmark Python environment
+
+Use the ComfyUI interpreter, not the Python used to build this website:
+
+```bash
+bash src/python_venv_details.sh /path/to/ComfyUI/.venv
+# An executable path works too:
+bash src/python_venv_details.sh /path/to/ComfyUI/.venv/bin/python
+```
+
+This checks that it is a virtual environment, reports Python/pip/PyTorch/CUDA/cuDNN/torchvision/torchaudio, and runs `pip check`. It omits environment paths, variables and the full package list. Gather a separate `pip freeze --all` for the run’s package lock; inspect it for local paths before publishing. See HARDWARE.md for the host inventory.
+
+The last inspected checkout had untracked `run_comfyui.sh` and `setup_comfyui.sh`, no tracked modifications, and no generated `comfyui-python-lock.txt`. Its resolved package inventory was captured separately. The historical launcher is not identical to the maintained `src/run_comfyui.sh`; hash the actual launcher used for each run.
 
 ## Set up the existing ComfyUI checkout
 
@@ -82,11 +125,11 @@ This script pins the direct PyTorch packages, while ComfyUI's requirements
 still allow many transitive packages to change. Copy the generated lock file
 into the benchmark record before running a benchmark. For a later rebuild,
 create a fresh Python 3.14 virtual environment in the same ComfyUI revision
-and install that lock file with the CUDA index command in section 6. Compare
+and install that lock file with the CUDA index command in “Capture the setup before benchmarking”. Compare
 `pip check`, the ComfyUI commit, and model hashes before treating runs as
 equivalent.
 
-## 2. Verify the environment
+## Verify the environment
 
 These checks do not install or modify packages:
 
@@ -99,7 +142,7 @@ These checks do not install or modify packages:
 For an NVIDIA benchmark host, `torch.cuda.is_available()` should print `True`
 and the reported device should be the intended GPU before continuing.
 
-## 3. Prepare Qwen Image 2.1 for low VRAM
+## Prepare Qwen Image 2.1 for low VRAM
 
 Use the smaller official INT8 ConvRot diffusion model and text encoder, plus
 the BF16 VAE. If you already have these weights, keep them in place. Their
@@ -138,7 +181,7 @@ df -h .
 df -h /mnt/hdd
 ```
 
-## 4. Run ComfyUI
+## Run ComfyUI
 
 The setup script installs [this launcher](https://github.com/wodend/comfyui-image-bench-qwen-2_1/blob/main/src/run_comfyui.sh) in the ComfyUI
 root. It can be invoked from any working directory:
@@ -197,7 +240,7 @@ runtime option while retaining the launcher's defaults, append it, for example:
 ./run_comfyui.sh --port 8189
 ```
 
-## 5. Load the official workflow
+## Load the official workflow
 
 After ComfyUI starts:
 
@@ -217,7 +260,7 @@ output path work together. It is not a benchmark result. Do not compare timing
 until inputs, workflow JSON, software revisions, warm-up policy, and measurement
 method have been fixed and recorded.
 
-## 6. Capture the setup before benchmarking
+## Capture the setup before benchmarking
 
 Generate a privacy-safe hardware and runtime summary with:
 
@@ -233,7 +276,7 @@ to GiB (for example, `8192 MiB` becomes `8 GiB`). Passing the virtual
 environment's Python executable includes its PyTorch and CUDA runtime versions;
 without an argument, the script checks `python3`.
 
-Also save the following read-only inventory with the first future benchmark
+Also save the following read-only inventory with each benchmark
 record:
 
 ```bash
@@ -272,3 +315,4 @@ also catches local dependency edits.
 - [CachyOS installation and hardware driver documentation](https://wiki.cachyos.org/features/chwd/chwd/)
 - [Official ComfyUI Qwen Image 2.1 model files](https://huggingface.co/Comfy-Org/Qwen-Image-2.1)
 - [Official Qwen Image 2.1 text-to-image workflow](https://github.com/Comfy-Org/workflow_templates/blob/main/templates/image_qwen_image_2_1_t2i.json)
+

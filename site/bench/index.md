@@ -1,12 +1,6 @@
-# ComfyUI Image Bench · Qwen 2.1
+# Image comparisons
 
-An ongoing visual comparison of local **Qwen Image 2.1 in ComfyUI** and **ChatGPT Images 2.0 Sol (light)**, as identified by the operator. We run both systems end to end with the same prompt and compare their outputs on text to image (T2I) and image to image (I2I) tasks. The first example below is a visual comparison; measured performance results will follow as run records are completed.
-
-<div class="site-index">
-<a href="hardware.html">Benchmark hardware <span>CPU, GPU, memory and driver</span></a>
-<a href="software.html">Software setup <span>ComfyUI, Python, PyTorch and models</span></a>
-<a href="methodology.html">Method and prompts <span>Workflow sources and reproducibility</span></a>
-</div>
+Compare local Qwen Image 2.1 outputs with ChatGPT as a control. Each task includes the shared prompt and the original images; open either image to inspect it at full resolution.
 
 ## T2I Realistic Character
 
@@ -14,11 +8,11 @@ A fashion editorial portrait tests clothing detail, lighting, composition, and t
 
 ### Prompt
 
-ChatGPT was used to generate the prompts used.
+<blockquote class="prompt">
+<p>A fashion editorial photograph shows a woman in a tailored white suit against a warm gray studio background. She stands facing the camera in a relaxed pose, wearing a white blazer and matching trousers over a simple white top. The suit fabric has a soft matte texture, with crisp lapels and clean seams. Gentle side lighting defines the folds of the clothing and casts a subtle shadow behind her. The composition is elegant and understated.</p>
+</blockquote>
 
-```json
-{"rewritten_prompt":"A fashion editorial photograph shows a woman in a tailored white suit against a warm gray studio background. She stands facing the camera in a relaxed pose, wearing a white blazer and matching trousers over a simple white top. The suit fabric has a soft matte texture, with crisp lapels and clean seams. Gentle side lighting defines the folds of the clothing and casts a subtle shadow behind her. The composition is elegant and understated.","wh_ratio":"2:3"}
-```
+Requested aspect ratio: **2:3**.
 
 ### Results
 
@@ -35,6 +29,17 @@ ChatGPT was used to generate the prompts used.
 
 Images are displayed at the same width, retaining their original aspect ratios. Select an image to inspect the original pixels.
 
+<details markdown="1">
+<summary>Run settings and reproduction artifacts</summary>
+
+### Exact submitted prompt
+
+Qwen’s saved workflow contains this JSON string as the text encoder input:
+
+```json
+{"rewritten_prompt":"A fashion editorial photograph shows a woman in a tailored white suit against a warm gray studio background. She stands facing the camera in a relaxed pose, wearing a white blazer and matching trousers over a simple white top. The suit fabric has a soft matte texture, with crisp lapels and clean seams. Gentle side lighting defines the folds of the clothing and casts a subtle shadow behind her. The composition is elegant and understated.","wh_ratio":"2:3"}
+```
+
 ### Recorded settings
 
 | Setting | Qwen Image 2.1 | ChatGPT |
@@ -49,7 +54,7 @@ Images are displayed at the same width, retaining their original aspect ratios. 
 | Negative prompt | Empty | Not recorded |
 | Timing / peak VRAM | Not recorded | Not recorded |
 
-The ChatGPT PNG contains no generation metadata. Its model name and shared prompt are taken from the draft, and cannot be independently verified from the file. The current [host](hardware.html) and [software inventory](software.html) are documented separately; a per-run environment lock and model hashes remain to be captured.
+The ChatGPT PNG contains no generation metadata. Its model name and shared prompt are taken from the draft, and cannot be independently verified from the file. The current [host](hardware/) and [software inventory](methods/) are documented separately; a per-run environment lock and model hashes remain to be captured.
 
 ### Reproduction artifacts
 
@@ -59,6 +64,8 @@ Use the [official ComfyUI Qwen Image 2.1 template](https://comfy.org/workflows/b
 - [API workflow](data/t2i-realistic-character/workflow-api.json)
 - [Exact submitted prompt](data/t2i-realistic-character/prompt.json)
 - [SHA-256 manifest for the images and artifacts](data/t2i-realistic-character/manifest.json)
+
+</details>
 
 ## I2I comparisons
 

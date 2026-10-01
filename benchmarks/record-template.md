@@ -11,6 +11,27 @@ from conclusions, and commit the exact exported workflow JSON beside the record.
 - Compared configurations:
 - Date and operator:
 
+## Task handoff and review checks
+
+- Test ID and roadmap task:
+- Capability being tested:
+- Intended workflow/configuration for each system:
+- Requested output aspect ratio and sample count:
+- Prerequisite T2I test IDs and completion status:
+- Usable-reference criteria and input selection rule:
+- I2I input files, hashes, reference order and subject mapping:
+- Each input’s originating T2I model/sample and original output path:
+- Verified equality of original-output and input-copy hashes:
+- Requested changes (I2I):
+- Properties to retain (I2I):
+- Observable review checks:
+- Run instructions handed to operator:
+- Output import and review status:
+
+Use `planned`, `awaiting outputs`, `ready for review`, or `published` for the
+record status. Keep intended settings separate from actual settings below.
+Retain all requested samples and record failures and retries.
+
 ## Hardware
 
 - Hardware report: `bash /mnt/ssd/Repos/comfyui-image-bench-qwen-2_1/src/hardware_details.sh .venv/bin/python` (from the ComfyUI root)
@@ -62,6 +83,7 @@ from conclusions, and commit the exact exported workflow JSON beside the record.
 - Warm-up runs excluded:
 - Measured run count:
 - Timing boundaries and tool:
+- ComfyUI INFO log path, run session, and recent `Prompt executed in` entries:
 - Peak VRAM measurement and tool:
 - Background processes or machine controls:
 

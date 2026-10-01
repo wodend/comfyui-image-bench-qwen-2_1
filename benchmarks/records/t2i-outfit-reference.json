@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "id": "t2i-outfit-reference",
+  "group": "t2i",
+  "order": 20,
+  "title": "T2I Outfit Reference",
+  "status": "complete",
+  "summary": "Two original images of a burgundy satin wrap dress on a neutral mannequin are available for side-by-side review. This T2I pair provides a candidate garment reference for the later outfit-change edit; no reference has been selected yet.",
+  "prompt": {
+    "display": "A realistic studio product photograph of a single burgundy satin wrap dress displayed on a neutral ivory, headless dress mannequin, viewed straight from the front. The dress has long sleeves, a modest V-shaped neckline, a tied fabric belt at the waist, and a knee-length skirt. The smooth satin fabric has a gentle sheen, with clearly visible seams and natural folds. The entire dress is visible, including both sleeves and the complete hem, with a small margin around it. The mannequin stands against a plain warm gray studio background. Soft, even lighting shows the garment's shape and fabric without harsh shadows. There are no other garments, accessories, people, text, or logos in the image. The composition is centered and vertical.",
+    "aspect_ratio": "2:3",
+    "submitted": {
+      "qwen": "data/t2i-outfit-reference/prompt.json",
+      "chatgpt": "data/t2i-outfit-reference/prompt.json"
+    },
+    "note": "The archived text is the exact submitted prompt. The Qwen PNG also embeds it; the ChatGPT PNG has no generation metadata."
+  },
+  "outputs": [
+    {
+      "model_id": "qwen-image-2-1",
+      "label": "Qwen Image 2.1",
+      "path": "assets/images/t2i-outfit-reference/qwen-image-2-1/output-001.png",
+      "alt": "Qwen output: a burgundy satin wrap dress with long sleeves and a tied waist on an ivory headless mannequin",
+      "caption": "Local ComfyUI · 1184 × 1776",
+      "width": 1184,
+      "height": 1776,
+      "duration_seconds": 89.43,
+      "timing_kind": "Cold run",
+      "logged_at": "2026-09-30 23:36:15 -07:00",
+      "seed": 593103825222985
+    },
+    {
+      "model_id": "chatgpt",
+      "label": "ChatGPT image output",
+      "path": "assets/images/t2i-outfit-reference/chatgpt/output-001.png",
+      "alt": "ChatGPT output: a burgundy satin wrap dress with long sleeves and a tied waist on an ivory headless mannequin",
+      "caption": "Operator-supplied PNG · 1024 × 1536",
+      "width": 1024,
+      "height": 1536,
+      "duration_seconds": null,
+      "timing_kind": null
+    }
+  ],
+  "pending_models": [],
+  "settings": [
+    [
+      "Seed",
+      "593103825222985 (actual; proposed 424242)",
+      "Not recorded"
+    ],
+    [
+      "Steps / CFG",
+      "25 / 1.0",
+      "Not exposed in supplied record"
+    ],
+    [
+      "Sampler / scheduler",
+      "Euler / simple",
+      "Not exposed in supplied record"
+    ],
+    [
+      "Negative prompt",
+      "Empty",
+      "Not recorded"
+    ],
+    [
+      "Timing",
+      "89.43 seconds, cold run",
+      "Not recorded"
+    ]
+  ],
+  "notes": [
+    "The Qwen output was saved at 23:36:15 on 2026-09-30. This single duration includes initial model loading and saving; it is not a warm-run average or a cross-system speed comparison.",
+    "The generated dress shows long sleeves, a V neckline, a tied waist and satin sheen. Its skirt appears longer than the requested knee length; reference suitability will be decided after both outputs are available.",
+    "Both images show the requested burgundy color, satin sheen, V neckline, long sleeves and tied waist. The Qwen image has straighter sleeves and a longer-looking skirt; the ChatGPT image has gathered shoulders and a shorter-looking skirt. Exact knee length cannot be checked without visible legs. Reference selection for the edit remains pending review."
+  ],
+  "artifacts": [
+    [
+      "ComfyUI workflow",
+      "data/t2i-outfit-reference/workflow.json"
+    ],
+    [
+      "API workflow",
+      "data/t2i-outfit-reference/workflow-api.json"
+    ],
+    [
+      "Exact submitted prompt",
+      "data/t2i-outfit-reference/prompt.json"
+    ],
+    [
+      "Image and artifact hashes",
+      "data/t2i-outfit-reference/manifest.json"
+    ]
+  ]
+}

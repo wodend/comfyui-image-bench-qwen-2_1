@@ -1,0 +1,25 @@
+{
+  "path_base": "site/",
+  "files": {
+    "assets/images/t2i-goat/qwen-image-2-1/output-001.png": {
+      "sha256": "bde4b2079671101fff02d2b00941e94d1b85a85fd3be75e08ab834092032d31f",
+      "bytes": 2605284
+    },
+    "assets/images/t2i-goat/chatgpt/output-001.png": {
+      "sha256": "c5806f805163e9100a595f99fc1cc0d422a5981d4dc1bccaa63311ed12b2ecf5",
+      "bytes": 2143674
+    },
+    "data/t2i-goat/prompt.json": {
+      "sha256": "44725b19269ac6b2c9d600f8c4cfce64b21c383565d7d727ae19e7d3a780b9eb",
+      "bytes": 744
+    },
+    "data/t2i-goat/workflow.json": {
+      "sha256": "a1ee9939a8cc3500f3d023055cc20f20143fff049467c76c38f49e25ecb867d5",
+      "bytes": 35835
+    },
+    "data/t2i-goat/workflow-api.json": {
+      "sha256": "7869095edd9da904206b8451946d05c5277fec729e017aa7528dd613043f3a00",
+      "bytes": 3231
+    }
+  }
+}

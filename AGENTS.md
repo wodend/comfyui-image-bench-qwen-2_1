@@ -11,7 +11,7 @@ Read this file at the beginning of every conversation about this repository. Rea
 
 `README.md` supplies the public home page. The marked public blocks in `HARDWARE.md` and `METHODS.md` supply the hardware and methods pages. Keep setup facts in those raw context files; do not maintain competing copies in public Markdown. The rest of those files and the agent/site instructions are not rendered into the website.
 
-`site/bench/index.md` supplies the comparison view. The main route is `/bench/`, with task links such as `/bench/#t2i-realistic-character`. The header links Home, Benchmarks, Hardware and Methods; the sidebar lists benchmark task headings, with a separate section for the current page’s headings on other pages.
+`site/bench/index.md` supplies only the comparison introduction. `benchmarks/records/<test-id>.json` supplies each task section; its `group` and `order` fields control the hierarchy. The main route is `/bench/`, with task links such as `/bench/#t2i-realistic-character`. The header links Home, Benchmarks, Hardware and Methods; the sidebar lists benchmark task headings, with a separate section for the current page’s headings on other pages.
 
 ## Benchmark rules
 
@@ -19,6 +19,7 @@ Read this file at the beginning of every conversation about this repository. Rea
 - Store outputs at `site/assets/images/<test-id>/<model-id>/output-001.png`; I2I inputs at `site/assets/images/<test-id>/inputs/input-001.png`. Use lowercase hyphenated IDs and three-digit sample numbers. Use the same test ID under `site/data/` and `benchmarks/`.
 - Retain original image bytes and metadata without re-encoding, exact workflow exports, input images, and SHA-256 manifests. Record actual model labels and configuration details.
 - Record dated host and environment information with measured runs. Distinguish current setup snapshots from per-run evidence. Do not infer missing timings, seeds, model identities or conclusions.
+- Generate all editing inputs and references through recorded T2I tasks. Track prerequisite IDs and input lineage in each record, and give both editors the same selected original files. See BENCH.md for the dependency roadmap.
 - Usually the agent prepares a task and the user runs it and supplies files later. Keep pending tasks clearly labeled, and never substitute generated examples for actual benchmark outputs.
 
 ## Working on the site

@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "id": "t2i-goat",
+  "group": "t2i",
+  "order": 30,
+  "title": "T2I Goat",
+  "status": "complete",
+  "summary": "Both original outputs for T2I Goat are available for side-by-side review. Reference selection for the later edit remains pending.",
+  "prompt": {
+    "display": "A realistic full-body studio photograph of a single adult domestic goat standing naturally in a three-quarter view, facing slightly toward the camera. The goat has a short cream-colored coat with light brown patches on its shoulders, two small backward-curving horns, a short beard, upright ears, and clearly visible cloven hooves. Its head, torso, all four legs and hooves, and entire tail are visible, with clear space around the body. The goat has a calm, alert expression. Soft, even studio lighting shows the coat texture and body shape against a plain warm gray background. No collar, harness, clothing, accessories, people, other animals, text, or logos. The composition is centered and vertical.",
+    "aspect_ratio": "2:3",
+    "submitted": {
+      "qwen": "data/t2i-goat/prompt.json",
+      "chatgpt": "data/t2i-goat/prompt.json"
+    },
+    "note": "The exact submitted prompt is archived below. The ChatGPT PNG has no generation metadata."
+  },
+  "outputs": [
+    {
+      "model_id": "qwen-image-2-1",
+      "label": "Qwen Image 2.1",
+      "path": "assets/images/t2i-goat/qwen-image-2-1/output-001.png",
+      "alt": "Qwen original output for T2I Goat",
+      "caption": "Local ComfyUI · 1184 × 1776",
+      "width": 1184,
+      "height": 1776,
+      "duration_seconds": 63.78,
+      "timing_kind": "Subsequent run",
+      "logged_at": "2026-10-01 00:04:39,206",
+      "timing_source": "logs/comfyui-current.log",
+      "seed": 593103825222985
+    },
+    {
+      "model_id": "chatgpt",
+      "label": "ChatGPT image output",
+      "path": "assets/images/t2i-goat/chatgpt/output-001.png",
+      "alt": "ChatGPT original output for T2I Goat",
+      "caption": "Operator-supplied PNG · 1024 × 1536",
+      "width": 1024,
+      "height": 1536,
+      "duration_seconds": null,
+      "timing_kind": null
+    }
+  ],
+  "pending_models": [],
+  "settings": [
+    [
+      "Seed",
+      "593103825222985",
+      "Not recorded"
+    ],
+    [
+      "Steps / CFG",
+      "25 / 1.0",
+      "Not exposed in supplied record"
+    ],
+    [
+      "Sampler / scheduler",
+      "euler / simple",
+      "Not exposed in supplied record"
+    ],
+    [
+      "Output dimensions",
+      "1184 × 1776",
+      "1024 × 1536"
+    ],
+    [
+      "Timing",
+      "63.78 seconds (subsequent run)",
+      "Not recorded"
+    ]
+  ],
+  "notes": [
+    "ComfyUI log: [2026-10-01 00:04:39,206] [INFO] Prompt executed in 63.78 seconds. Matched to the original Qwen PNG by SHA-256 and its save time.",
+    "No ChatGPT timing or generation metadata is available from the supplied PNG."
+  ],
+  "artifacts": [
+    [
+      "ComfyUI workflow",
+      "data/t2i-goat/workflow.json"
+    ],
+    [
+      "API workflow",
+      "data/t2i-goat/workflow-api.json"
+    ],
+    [
+      "Exact submitted prompt",
+      "data/t2i-goat/prompt.json"
+    ],
+    [
+      "Image and artifact hashes",
+      "data/t2i-goat/manifest.json"
+    ]
+  ]
+}

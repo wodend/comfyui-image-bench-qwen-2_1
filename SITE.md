@@ -9,9 +9,9 @@ Agent/operator instructions for the website. These instructions are not public p
 | `README.md` | `/` |
 | Public block in `HARDWARE.md` | `/hardware/` |
 | Public block in `METHODS.md` | `/methods/` |
-| `site/bench/index.md` | `/bench/` |
+| `site/bench/index.md` plus `benchmarks/records/*.json` | `/bench/` |
 
-Public blocks are delimited by `<!-- public:start -->` and `<!-- public:end -->`. Keep operational instructions outside these blocks. The builder renders only the listed sources, copies `site/assets/` and `site/data/`.
+Public blocks are delimited by `<!-- public:start -->` and `<!-- public:end -->`. Keep operational instructions outside these blocks. The builder renders only the listed sources, orders comparison records by `group` and `order`, then copies `site/assets/` and `site/data/`.
 
 Links in public Markdown use paths relative to the generated site root, such as `bench/`, `hardware/`, `methods/`, `assets/images/...` and `data/...`. The builder rebases them for each route, preserving GitHub project-path and custom-domain compatibility. Do not hard-code a host into navigation. Use `/bench/#<test-id>` for direct task links.
 

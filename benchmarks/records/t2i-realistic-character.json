@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "id": "t2i-realistic-character",
+  "group": "t2i",
+  "order": 10,
+  "title": "T2I Realistic Character",
+  "status": "complete",
+  "summary": "A fashion editorial portrait tests clothing detail, lighting, composition and a requested 2:3 aspect ratio. Both outputs were supplied on 2026-09-26. No scored winner or generation time was recorded.",
+  "prompt": {
+    "display": "A fashion editorial photograph shows a woman in a tailored white suit against a warm gray studio background. She stands facing the camera in a relaxed pose, wearing a white blazer and matching trousers over a simple white top. The suit fabric has a soft matte texture, with crisp lapels and clean seams. Gentle side lighting defines the folds of the clothing and casts a subtle shadow behind her. The composition is elegant and understated.",
+    "aspect_ratio": "2:3",
+    "submitted": {
+      "qwen": "data/t2i-realistic-character/prompt.json",
+      "chatgpt": "data/t2i-realistic-character/prompt.json"
+    },
+    "note": "The archived text is the exact submitted prompt. The Qwen PNG also embeds it; the ChatGPT PNG has no generation metadata."
+  },
+  "outputs": [
+    {
+      "model_id": "qwen-image-2-1",
+      "label": "Qwen Image 2.1",
+      "path": "assets/images/t2i-realistic-character/qwen-image-2-1/output-001.png",
+      "alt": "Qwen output: a woman in a white suit standing against a gray studio background",
+      "caption": "Local ComfyUI · INT8 ConvRot · 1184 × 1776",
+      "width": 1184,
+      "height": 1776,
+      "duration_seconds": null,
+      "timing_kind": null
+    },
+    {
+      "model_id": "chatgpt",
+      "label": "ChatGPT Images 2.0 Sol (light)",
+      "path": "assets/images/t2i-realistic-character/chatgpt/output-001.png",
+      "alt": "ChatGPT output: a woman in a white suit standing against a gray studio background",
+      "caption": "Operator model label · 1024 × 1536",
+      "width": 1024,
+      "height": 1536,
+      "duration_seconds": null,
+      "timing_kind": null
+    }
+  ],
+  "pending_models": [],
+  "settings": [
+    [
+      "Seed",
+      "593103825222985",
+      "Not recorded"
+    ],
+    [
+      "Steps / CFG",
+      "25 / 1.0",
+      "Not exposed"
+    ],
+    [
+      "Sampler / scheduler",
+      "Euler / simple",
+      "Not exposed"
+    ],
+    [
+      "Negative prompt",
+      "Empty",
+      "Not recorded"
+    ],
+    [
+      "Timing / peak VRAM",
+      "Not recorded",
+      "Not recorded"
+    ]
+  ],
+  "notes": [
+    "The current host and software inventory are dated separately; no per-run environment lock or model hashes were captured with this image pair."
+  ],
+  "artifacts": [
+    [
+      "ComfyUI workflow",
+      "data/t2i-realistic-character/workflow.json"
+    ],
+    [
+      "API workflow",
+      "data/t2i-realistic-character/workflow-api.json"
+    ],
+    [
+      "Exact submitted prompt",
+      "data/t2i-realistic-character/prompt.json"
+    ],
+    [
+      "Image and artifact hashes",
+      "data/t2i-realistic-character/manifest.json"
+    ]
+  ]
+}

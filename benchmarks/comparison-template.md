@@ -1,33 +1,7 @@
-## T2I or I2I · Task name
+# Comparison page pattern
 
-Describe the task and identify the source of each model label. Link a completed run record.
+Public comparison sections are generated from `benchmarks/records/<test-id>.json`. Start with [`record-template.json`](record-template.json) and read [`records/README.md`](records/README.md) for required fields. Keep the detailed run handoff and raw observations in `benchmarks/<test-id>.md`.
 
-### Prompt
+The site builder places sections by `group` and `order`. It renders the readable prompt first, then equal-width panels for the available original PNGs. A missing output appears as a labeled pending panel. Exact submitted prompts, run settings and reproducibility artifacts appear in expandable details below the images. Do not edit `site/bench/index.md` to insert a task; that file is the comparison-page introduction only.
 
-Include the exact shared submitted prompt. For I2I, include input images and hashes.
-
-### Results
-
-Copy this HTML into `site/bench/index.md`, replacing paths, dimensions, labels, and descriptions:
-
-```html
-<div class="comparison" aria-label="Task comparison">
-<figure>
-<a href="assets/images/<test-id>/qwen-image-2-1/output-001.png"><img src="assets/images/<test-id>/qwen-image-2-1/output-001.png" width="1184" height="1776" alt="Describe the Qwen output"></a>
-<figcaption><strong>Qwen Image 2.1</strong><span>Configuration and output size</span></figcaption>
-</figure>
-<figure>
-<a href="assets/images/<test-id>/chatgpt/output-001.png"><img src="assets/images/<test-id>/chatgpt/output-001.png" width="1024" height="1536" alt="Describe the ChatGPT output"></a>
-<figcaption><strong>Recorded ChatGPT model label</strong><span>Configuration and output size</span></figcaption>
-</figure>
-</div>
-```
-
-<details markdown="1">
-<summary>Run settings and reproduction artifacts</summary>
-
-### Recorded settings
-
-Record settings for both models, identify missing values, and link the exact workflow, environment lock, prompts, input images, and SHA-256 manifest under `data/<test-id>/`.
-
-</details>
+Use `site/assets/images/<test-id>/<model-id>/output-001.png` for originals and `site/data/<test-id>/` for prompt, workflow and manifest artifacts. Preserve original bytes and mark unavailable settings rather than inferring them.

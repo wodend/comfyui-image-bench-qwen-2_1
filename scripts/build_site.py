@@ -9,11 +9,78 @@ from urllib.parse import unquote, urlsplit
 import hashlib
 import json
 import re
+import struct
 import markdown
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "site"
 OUTPUT = ROOT / "_site"
+RECORDS = ROOT / "benchmarks/records"
+
+
+def comparison_markdown():
+    """Render benchmark records; group/order determine their place on the page."""
+    records = [(path, json.loads(path.read_text())) for path in sorted(RECORDS.glob("*.json"))]
+    seen = set()
+    for record_path, record in records:
+        key = (record["group"], record["order"])
+        if (record["schema_version"] != 1 or record["group"] not in ("t2i", "i2i")
+                or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", record["id"])
+                or record_path.stem != record["id"]
+                or key in seen or record["status"] not in ("complete", "awaiting outputs")):
+            raise ValueError(f"Invalid or duplicate benchmark record: {record['id']}")
+        seen.add(key)
+        present_models = {output["model_id"] for output in record["outputs"]}
+        pending_models = {pending["model_id"] for pending in record["pending_models"]}
+        if (present_models & pending_models or
+                (record["status"] == "complete" and (pending_models or not {"qwen-image-2-1", "chatgpt"} <= present_models))):
+            raise ValueError(f"Inconsistent output status: {record['id']}")
+        for output in record["outputs"]:
+            path = SOURCE / output["path"]
+            if not path.is_file() or not path.resolve().is_relative_to(SOURCE.resolve()):
+                raise ValueError(f"Missing benchmark output: {path}")
+            with path.open("rb") as image_file:
+                header = image_file.read(24)
+            if header[:8] != b"\x89PNG\r\n\x1a\n" or struct.unpack(">II", header[16:24]) != (output["width"], output["height"]):
+                raise ValueError(f"Incorrect PNG dimensions: {path}")
+        for entry in record["artifacts"]:
+            if not (SOURCE / entry[1]).is_file():
+                raise ValueError(f"Missing benchmark artifact: {entry[1]}")
+    result = []
+    for _, record in sorted(records, key=lambda item: ((0 if item[1]["group"] == "t2i" else 1), item[1]["order"])):
+        prompt = record["prompt"]
+        result += [f'## {record["title"]} {{#{record["id"]}}}', '',
+                   record["summary"], '', '### Prompt', '',
+                   '<blockquote class="prompt"><p>' + escape(prompt["display"]) + '</p></blockquote>', '',
+                   f'Requested aspect ratio: **{prompt["aspect_ratio"]}**.', '', '### Results', '',
+                   f'<div class="comparison" aria-label="{escape(record["title"])} comparison">']
+        for output in record["outputs"]:
+            label, path = escape(output["label"]), escape(output["path"])
+            timing = (f'<span>{escape(output["timing_kind"])} · {output["duration_seconds"]:.2f} seconds</span>'
+                      if output["duration_seconds"] is not None else '')
+            result += [f'<figure><a href="{path}"><img src="{path}" width="{output["width"]}" height="{output["height"]}" alt="{escape(output["alt"])}"></a>',
+                       f'<figcaption><strong>{label}</strong><span>{escape(output["caption"])}</span>{timing}<a href="{path}" download>Download original PNG</a></figcaption></figure>']
+        for pending in record["pending_models"]:
+            result += [f'<div class="pending-panel"><strong>{escape(pending["label"])}</strong><span>{escape(pending["message"])}</span></div>']
+        result += ['</div>', '', '<details markdown="1">', '<summary>Run settings and reproduction artifacts</summary>', '',
+                   '### Exact submitted prompt', '', prompt["note"], '']
+        shown_prompts = set()
+        for model, path in prompt["submitted"].items():
+            if path:
+                if path in shown_prompts:
+                    continue
+                shown_prompts.add(path)
+                exact = (SOURCE / path).read_text().strip()
+                result += ['```json', exact, '```', '']
+        result += ['### Recorded settings', '', '| Setting | Qwen Image 2.1 | ChatGPT |', '| --- | --- | --- |']
+        for row in record["settings"]:
+            result.append('| ' + ' | '.join(row) + ' |')
+        result += ['', *[note + '\n' for note in record["notes"]],
+                   '### Reproduction artifacts', '']
+        for label, path in record["artifacts"]:
+            result.append(f'- [{label}]({path})')
+        result += ['', '</details>', '']
+    return '\n'.join(result)
 
 
 def public_block(filename):
@@ -22,7 +89,7 @@ def public_block(filename):
 
 
 def render(text):
-    renderer = markdown.Markdown(extensions=["tables", "fenced_code", "toc", "md_in_html"],
+    renderer = markdown.Markdown(extensions=["tables", "fenced_code", "toc", "md_in_html", "attr_list"],
                                  extension_configs={"toc": {"toc_depth": "2"}})
     content = renderer.convert(text)
     content = content.replace("<table>", '<div class="table-scroll" tabindex="0" role="region" aria-label="Data table"><table>').replace("</table>", "</table></div>")
@@ -109,7 +176,7 @@ def build():
         copytree(SOURCE / directory, OUTPUT / directory)
     pages = {
         "": (ROOT / "README.md").read_text(),
-        "bench": (SOURCE / "bench/index.md").read_text(),
+        "bench": (SOURCE / "bench/index.md").read_text() + "\n" + comparison_markdown(),
         "hardware": public_block("HARDWARE.md"),
         "methods": public_block("METHODS.md"),
     }

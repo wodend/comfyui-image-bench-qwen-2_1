@@ -5,7 +5,7 @@ This file is the source of truth for the Python environment, model setup and Com
 <!-- public:start -->
 # Benchmark methods
 
-We compare Qwen Image 2.1 running locally in ComfyUI with ChatGPT as a control. Both systems receive the same prompt. Text to image (T2I) tests start from text; image to image (I2I) tests also use supplied reference images.
+We compare Qwen Image 2.1 running locally in ComfyUI with ChatGPT as a control. For each benchmark, the exact same submitted prompt text is sent to both systems, including a JSON wrapper when used. Text to image (T2I) tests start from text; image to image (I2I) tests also use supplied reference images.
 
 ## Prompts and comparisons
 
@@ -183,6 +183,47 @@ df -h /mnt/hdd
 
 ## Run ComfyUI
 
+### Log each generation for timing
+
+This checkout's `--verbose INFO FILE` option writes timestamps and INFO events to a file. In `main.py`, ComfyUI measures each dequeued prompt with `time.perf_counter()` and logs `Prompt executed in N.NN seconds` after execution. That time includes prompt execution and saving; it is not browser waiting time, and model loading may make the first run slower. The log entry does not contain the prompt ID, so queue benchmark jobs **one at a time** and record the output filename and log time together.
+
+From this benchmark repository, first create the ignored local log directory:
+
+```bash
+mkdir -p logs
+```
+
+From the **separate ComfyUI checkout** containing `run_comfyui.sh`, start a single server with its INFO log directed back here:
+
+```bash
+./run_comfyui.sh --verbose INFO /mnt/ssd/Repos/comfyui-image-bench-qwen-2_1/logs/comfyui-current.log
+```
+
+The launcher still selects `--lowvram` and its configured output directory. Leave that terminal running while generating. If a ComfyUI server is already using port 8188, stop it before starting this logged instance, or supply a different port and record the choice. The INFO file appends across launches; its timestamps and the run record identify the relevant session. Do not commit the raw log: it may contain local paths or error details.
+
+From the benchmark repository in another terminal, inspect only recent lines:
+
+```bash
+tail -n 500 logs/comfyui-current.log | rg 'Prompt executed in|Exception during processing|ERROR'
+```
+
+To watch **new** events without replaying the old log:
+
+```bash
+tail -n 0 -F logs/comfyui-current.log | rg --line-buffered 'Prompt executed in|Exception during processing|ERROR'
+```
+
+After each queued image, note the output filename and matching `Prompt executed in` value in `benchmarks/<test-id>.md`. A prompt that produces several images has one aggregate duration; queue one image per prompt when individual generation timings are wanted. Keep the first cold run separate from later warm runs. Do not treat the duration as a comparable measured result without recording the run count, workflow, warm-up policy, and timing boundary. Ask the agent to inspect the recent log after generation; it will use `tail`, not read the full file. Stop live `tail -F` with Ctrl+C when finished.
+
+After copying both original PNGs for an approved, one-sample T2I task into `site/assets/images/<test-id>/qwen-image-2-1/output-001.png` and `site/assets/images/<test-id>/chatgpt/output-001.png`, run this from the benchmark repository:
+
+```bash
+.venv-site/bin/python scripts/post_generation.py --test-id <test-id> --check
+.venv-site/bin/python scripts/post_generation.py --test-id <test-id>
+```
+
+The first command only checks the files, submitted Qwen prompt, original ComfyUI output and recent timing match. The second writes the structured record, exact prompt, workflow exports and SHA-256 manifest, then rebuilds the site. By default it tails 1,000 lines of `logs/comfyui-current.log` and searches the 100 newest PNGs under `/mnt/hdd/ComfyUIOutput` for an identical original Qwen file. If that output was moved or the log uses another location, supply `--qwen-source /path/to/original.png`, `--comfy-output-dir /path/to/output`, or `--log /path/to/log` as appropriate. A timing is recorded only when one recent completion uniquely matches that original file's save time. Review the generated record and images before publishing.
+
 The setup script installs [this launcher](https://github.com/wodend/comfyui-image-bench-qwen-2_1/blob/main/src/run_comfyui.sh) in the ComfyUI
 root. It can be invoked from any working directory:
 
@@ -315,4 +356,3 @@ also catches local dependency edits.
 - [CachyOS installation and hardware driver documentation](https://wiki.cachyos.org/features/chwd/chwd/)
 - [Official ComfyUI Qwen Image 2.1 model files](https://huggingface.co/Comfy-Org/Qwen-Image-2.1)
 - [Official Qwen Image 2.1 text-to-image workflow](https://github.com/Comfy-Org/workflow_templates/blob/main/templates/image_qwen_image_2_1_t2i.json)
-

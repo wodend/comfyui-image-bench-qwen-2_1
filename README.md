@@ -1,6 +1,6 @@
 # ComfyUI Image Bench · Qwen 2.1
 
-This project explores what Qwen Image 2.1 can do when run locally in ComfyUI, using ChatGPT image generation as a control. The same prompts are used to compare the systems on basic text to image (T2I) and image to image (I2I) tasks.
+This project explores what Qwen Image 2.1 can do when run locally in ComfyUI, using ChatGPT image generation as a control. The comparisons cover basic text to image (T2I) and image to image (I2I) tasks.
 
 The focus is the images: each benchmark shows its prompt followed by the original outputs in side-by-side panels. Hardware specifications, software versions and workflow artifacts give context for reproducing the local runs.
 

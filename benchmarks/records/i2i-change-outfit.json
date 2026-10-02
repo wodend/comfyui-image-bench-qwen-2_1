@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "id": "i2i-change-outfit",
+  "group": "i2i",
+  "order": 10,
+  "title": "I2I Change Outfit",
+  "status": "complete",
+  "summary": "Two source-portrait cases use the same dress reference and approved shared prompt. Original edited images from both systems are archived for each case.",
+  "inputs": [
+    {
+      "role": "<image1> — Qwen portrait case",
+      "label": "Qwen white-suit portrait",
+      "path": "assets/images/i2i-change-outfit/inputs/input-001.png",
+      "source_test_id": "t2i-realistic-character",
+      "source_model_id": "qwen-image-2-1",
+      "source_output": "assets/images/t2i-realistic-character/qwen-image-2-1/output-001.png",
+      "sha256": "79e77e7b807182fbf3c5217aed73463bd6dc1ac054393a86142cb3c4cbcd845e",
+      "width": 1184,
+      "height": 1776,
+      "alt": "Original Qwen portrait of a woman in a white suit against a warm gray studio background"
+    },
+    {
+      "role": "<image2> — dress reference in both cases",
+      "label": "Burgundy dress reference",
+      "path": "assets/images/i2i-change-outfit/inputs/input-002.png",
+      "source_test_id": "t2i-outfit-reference",
+      "source_model_id": "qwen-image-2-1",
+      "source_output": "assets/images/t2i-outfit-reference/qwen-image-2-1/output-001.png",
+      "sha256": "61a7f25dfdaf123efd3f5aee3185fa4821561171aaaebe1b6fca6d92b73bd00c",
+      "width": 1184,
+      "height": 1776,
+      "alt": "Original product image of a burgundy satin wrap dress on a headless mannequin"
+    },
+    {
+      "role": "<image1> — ChatGPT portrait case",
+      "label": "ChatGPT white-suit portrait",
+      "path": "assets/images/i2i-change-outfit/inputs/input-003.png",
+      "source_test_id": "t2i-realistic-character",
+      "source_model_id": "chatgpt",
+      "source_output": "assets/images/t2i-realistic-character/chatgpt/output-001.png",
+      "sha256": "be476b09b503b7d03be304f6c5d98f4f693c4dd814687400a97dadbc83260755",
+      "width": 1024,
+      "height": 1536,
+      "alt": "Original ChatGPT full-length portrait of a woman in a white suit against a warm gray studio background"
+    }
+  ],
+  "prompt": {
+    "display": "Replace the woman's white blazer, top, and trousers in <image1> with the burgundy satin wrap dress from <image2>. Use <image1> as the portrait to edit and <image2> only as the garment reference. Match the dress's deep burgundy color, subtle satin sheen, long sleeves with cuffs, overlapping V-shaped wrap neckline, tied fabric belt at the waist, and gently flared skirt silhouette. Fit the dress naturally to her body and existing stance, with believable folds, seams, and a coherent hem at knee length. Remove the white suit completely, revealing anatomically natural legs below the skirt while preserving her original white shoes and foot positions. Keep the arm on the viewer's right bent in its original position, with the hand resting naturally against her hip outside the dress after removing the trouser pocket; preserve the relaxed hanging hand on the viewer's left. Keep the same woman, face, hair, expression, earrings, body proportions, overall standing pose, camera angle, full-body framing, warm gray studio background, and lighting from <image1>. Render the dress as part of the original photograph, with highlights and shadows consistent with the existing studio lighting. Do not include the mannequin, extra people, extra garments, text, or logos.",
+    "aspect_ratio": "follow input 1 (2:3)",
+    "submitted": {
+      "qwen": "data/i2i-change-outfit/prompt.json",
+      "chatgpt": "data/i2i-change-outfit/prompt.json"
+    },
+    "note": "Both Qwen PNGs embed the archived JSON exactly. ChatGPT PNGs have no embedded prompt metadata; the shared prompt follows the operator's stated benchmark procedure."
+  },
+  "outputs": [
+    {
+      "model_id": "qwen-image-2-1",
+      "label": "Qwen Image 2.1",
+      "path": "assets/images/i2i-change-outfit/qwen-image-2-1/output-001.png",
+      "alt": "Qwen outfit-change output using the Qwen white-suit portrait",
+      "caption": "Local ComfyUI · INT8 ConvRot · 1184 × 1792",
+      "width": 1184,
+      "height": 1792,
+      "duration_seconds": 157.31,
+      "timing_kind": "Subsequent run",
+      "logged_at": "2026-10-01 22:24:27,292",
+      "timing_source": "logs/comfyui-current.log",
+      "seed": 375837271375947
+    },
+    {
+      "model_id": "chatgpt",
+      "label": "ChatGPT Images 2.0 Sol (light)",
+      "path": "assets/images/i2i-change-outfit/chatgpt/output-001.png",
+      "alt": "ChatGPT outfit-change output using the Qwen white-suit portrait",
+      "caption": "Operator model label · 1024 × 1536",
+      "width": 1024,
+      "height": 1536,
+      "duration_seconds": null,
+      "timing_kind": null
+    },
+    {
+      "model_id": "qwen-image-2-1",
+      "label": "Qwen Image 2.1",
+      "path": "assets/images/i2i-change-outfit/qwen-image-2-1/output-002.png",
+      "alt": "Qwen outfit-change output using the ChatGPT white-suit portrait",
+      "caption": "Local ComfyUI · INT8 ConvRot · 1024 × 1536",
+      "width": 1024,
+      "height": 1536,
+      "duration_seconds": 113.77,
+      "timing_kind": "Subsequent run",
+      "logged_at": "2026-10-01 22:20:25,535",
+      "timing_source": "logs/comfyui-current.log",
+      "seed": 879528060392197
+    },
+    {
+      "model_id": "chatgpt",
+      "label": "ChatGPT Images 2.0 Sol (light)",
+      "path": "assets/images/i2i-change-outfit/chatgpt/output-002.png",
+      "alt": "ChatGPT outfit-change output using the ChatGPT white-suit portrait",
+      "caption": "Operator model label · 1024 × 1536",
+      "width": 1024,
+      "height": 1536,
+      "duration_seconds": null,
+      "timing_kind": null
+    }
+  ],
+  "pending_models": [],
+  "settings": [
+    [
+      "Qwen portrait case · seed / timing",
+      "375837271375947 / 157.31 seconds",
+      "Not recorded"
+    ],
+    [
+      "ChatGPT portrait case · seed / timing",
+      "879528060392197 / 113.77 seconds",
+      "Not recorded"
+    ],
+    [
+      "Steps / CFG",
+      "25 / 1.0",
+      "Not exposed"
+    ],
+    [
+      "Sampler / scheduler",
+      "Euler / simple",
+      "Not exposed"
+    ],
+    [
+      "Input 1 / input 2",
+      "Qwen portrait then Qwen dress; ChatGPT portrait then Qwen dress",
+      "Paired by output number; source pairing based on supplied files and visual inspection"
+    ]
+  ],
+  "notes": [
+    "Qwen output-001 used the Qwen-generated white-suit portrait and the Qwen dress reference. Its original ComfyUI PNG is Qwen_image_2.1_00053.png; the matched log entry is 157.31 seconds.",
+    "Qwen output-002 used the ChatGPT-generated white-suit portrait and the same Qwen dress reference. Its original ComfyUI PNG is Qwen_image_2.1_00052.png; the matched log entry is 113.77 seconds.",
+    "An earlier Qwen prompt was interrupted after 62.54 seconds and produced no recorded output. The two successful durations are individual observations, not a speed comparison.",
+    "ChatGPT PNGs contain no generation metadata. They are paired by output number with the Qwen edits; their apparent source portraits are consistent with the corresponding input images."
+  ],
+  "artifacts": [
+    [
+      "Exact submitted Qwen prompt",
+      "data/i2i-change-outfit/prompt.json"
+    ],
+    [
+      "Qwen portrait case workflow",
+      "data/i2i-change-outfit/workflow-qwen-portrait.json"
+    ],
+    [
+      "Qwen portrait case API graph",
+      "data/i2i-change-outfit/workflow-api-qwen-portrait.json"
+    ],
+    [
+      "ChatGPT portrait case workflow",
+      "data/i2i-change-outfit/workflow-chatgpt-portrait.json"
+    ],
+    [
+      "ChatGPT portrait case API graph",
+      "data/i2i-change-outfit/workflow-api-chatgpt-portrait.json"
+    ],
+    [
+      "Image and artifact hashes",
+      "data/i2i-change-outfit/manifest.json"
+    ]
+  ],
+  "cases": [
+    {
+      "id": "qwen-portrait",
+      "title": "Qwen portrait as input",
+      "input_paths": [
+        "assets/images/i2i-change-outfit/inputs/input-001.png",
+        "assets/images/i2i-change-outfit/inputs/input-002.png"
+      ],
+      "output_paths": [
+        "assets/images/i2i-change-outfit/qwen-image-2-1/output-001.png",
+        "assets/images/i2i-change-outfit/chatgpt/output-001.png"
+      ]
+    },
+    {
+      "id": "chatgpt-portrait",
+      "title": "ChatGPT portrait as input",
+      "input_paths": [
+        "assets/images/i2i-change-outfit/inputs/input-003.png",
+        "assets/images/i2i-change-outfit/inputs/input-002.png"
+      ],
+      "output_paths": [
+        "assets/images/i2i-change-outfit/qwen-image-2-1/output-002.png",
+        "assets/images/i2i-change-outfit/chatgpt/output-002.png"
+      ]
+    }
+  ]
+}

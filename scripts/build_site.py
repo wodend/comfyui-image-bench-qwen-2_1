@@ -43,26 +43,58 @@ def comparison_markdown():
                 header = image_file.read(24)
             if header[:8] != b"\x89PNG\r\n\x1a\n" or struct.unpack(">II", header[16:24]) != (output["width"], output["height"]):
                 raise ValueError(f"Incorrect PNG dimensions: {path}")
+        for input_image in record.get("inputs", []):
+            path = SOURCE / input_image["path"]
+            original = SOURCE / input_image["source_output"]
+            if (not path.is_file() or not original.is_file()
+                    or not path.resolve().is_relative_to(SOURCE.resolve())
+                    or not original.resolve().is_relative_to(SOURCE.resolve())):
+                raise ValueError(f"Missing or invalid benchmark input: {path}")
+            actual_hash = hashlib.sha256(path.read_bytes()).hexdigest()
+            if actual_hash != input_image["sha256"] or hashlib.sha256(original.read_bytes()).hexdigest() != actual_hash:
+                raise ValueError(f"Input lineage hash mismatch: {path}")
+            with path.open("rb") as image_file:
+                header = image_file.read(24)
+            if header[:8] != b"\x89PNG\r\n\x1a\n" or struct.unpack(">II", header[16:24]) != (input_image["width"], input_image["height"]):
+                raise ValueError(f"Incorrect input PNG dimensions: {path}")
+        output_paths = {output["path"] for output in record["outputs"]}
+        input_paths = {input_image["path"] for input_image in record.get("inputs", [])}
+        for case in record.get("cases", []):
+            if (not set(case["input_paths"]) <= input_paths
+                    or not set(case["output_paths"]) <= output_paths):
+                raise ValueError(f"Invalid input or output path in case: {record['id']}")
         for entry in record["artifacts"]:
             if not (SOURCE / entry[1]).is_file():
                 raise ValueError(f"Missing benchmark artifact: {entry[1]}")
     result = []
     for _, record in sorted(records, key=lambda item: ((0 if item[1]["group"] == "t2i" else 1), item[1]["order"])):
         prompt = record["prompt"]
-        result += [f'## {record["title"]} {{#{record["id"]}}}', '',
-                   record["summary"], '', '### Prompt', '',
-                   '<blockquote class="prompt"><p>' + escape(prompt["display"]) + '</p></blockquote>', '',
-                   f'Requested aspect ratio: **{prompt["aspect_ratio"]}**.', '', '### Results', '',
-                   f'<div class="comparison" aria-label="{escape(record["title"])} comparison">']
-        for output in record["outputs"]:
-            label, path = escape(output["label"]), escape(output["path"])
-            timing = (f'<span>{escape(output["timing_kind"])} · {output["duration_seconds"]:.2f} seconds</span>'
-                      if output["duration_seconds"] is not None else '')
-            result += [f'<figure><a href="{path}"><img src="{path}" width="{output["width"]}" height="{output["height"]}" alt="{escape(output["alt"])}"></a>',
-                       f'<figcaption><strong>{label}</strong><span>{escape(output["caption"])}</span>{timing}<a href="{path}" download>Download original PNG</a></figcaption></figure>']
-        for pending in record["pending_models"]:
-            result += [f'<div class="pending-panel"><strong>{escape(pending["label"])}</strong><span>{escape(pending["message"])}</span></div>']
-        result += ['</div>', '', '<details markdown="1">', '<summary>Run settings and reproduction artifacts</summary>', '',
+        result += [f'## {record["title"]} {{#{record["id"]}}}', '']
+        if record.get("inputs"):
+            result += ['### Inputs', '', '<div class="comparison inputs" aria-label="Editing inputs">']
+            for input_image in record["inputs"]:
+                path = escape(input_image["path"])
+                result += [f'<figure><a href="{path}"><img src="{path}" width="{input_image["width"]}" height="{input_image["height"]}" alt="{escape(input_image["alt"])}"></a>',
+                           f'<figcaption><strong>{escape(input_image["label"])}</strong><span>{escape(input_image["role"])}</span><a href="{path}" download>Download original input PNG</a></figcaption></figure>']
+            result += ['</div>', '']
+        result += ['<blockquote class="prompt"><p>' + escape(prompt["display"]) + '</p></blockquote>', '',
+                   f'Requested aspect ratio: **{prompt["aspect_ratio"]}**.', '']
+        output_by_path = {output["path"]: output for output in record["outputs"]}
+        cases = record.get("cases") or [{"title": record["title"], "output_paths": list(output_by_path)}]
+        for case in cases:
+            if record.get("cases"):
+                result += [f'### {case["title"]}', '']
+            result += [f'<div class="comparison" aria-label="{escape(case["title"])} comparison">']
+            for output_path in case["output_paths"]:
+                output = output_by_path[output_path]
+                label, path = escape(output["label"]), escape(output["path"])
+                result += [f'<figure><a href="{path}"><img src="{path}" width="{output["width"]}" height="{output["height"]}" alt="{escape(output["alt"])}"></a>',
+                           f'<figcaption><strong>{label}</strong><span>{escape(output["caption"])}</span><a href="{path}" download>Download original PNG</a></figcaption></figure>']
+            if not record.get("cases"):
+                for pending in record["pending_models"]:
+                    result += [f'<div class="pending-panel"><strong>{escape(pending["label"])}</strong><span>{escape(pending["message"])}</span></div>']
+            result += ['</div>', '']
+        result += ['<details markdown="1">', '<summary>Run settings and reproduction artifacts</summary>', '',
                    '### Exact submitted prompt', '', prompt["note"], '']
         shown_prompts = set()
         for model, path in prompt["submitted"].items():
@@ -189,13 +221,18 @@ def build():
         nav = ''.join(f'<a href="{target + "/" if target else "./"}"'
                       f'{" aria-current=\"page\"" if target == route else ""}>{label}</a>'
                       for target, label in [("", "Home"), ("bench", "Benchmarks"), ("hardware", "Hardware"), ("methods", "Methods")])
-        sidebar = '<nav aria-label="Benchmark tasks"><h2>Benchmarks</h2><ul>' + task_links + '</ul></nav>'
-        if route in ("hardware", "methods"):
-            sidebar += '<nav class="page-index" aria-label="On this page"><h2>On this page</h2>' + toc + '</nav>'
+        if route == "bench":
+            sidebar = '<nav aria-label="Benchmark tasks"><h2>Benchmarks</h2><ul>' + task_links + '</ul></nav>'
+        elif route in ("hardware", "methods"):
+            sidebar = '<nav class="page-index" aria-label="On this page"><h2>On this page</h2>' + toc + '</nav>'
+        else:
+            sidebar = ''
         if not route:
             content += '<div class="home-links"><a class="primary-link" href="bench/">Explore the comparisons →</a><a href="hardware/">View hardware</a><a href="methods/">Read the methods</a></div>'
         html = template.substitute(title=escape(text.splitlines()[0].removeprefix("# ")),
-                                   content=content, nav=nav, sidebar=sidebar)
+                                   content=content, nav=nav,
+                                   sidebar=f'<aside class="sidebar">{sidebar}</aside>' if sidebar else '',
+                                   shell_class='no-sidebar' if not sidebar else '')
         destination = OUTPUT / route
         destination.mkdir(exist_ok=True)
         (destination / "index.html").write_text(rebase(html, "../" if route else ""))

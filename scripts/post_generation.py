@@ -188,10 +188,10 @@ def run(args):
         qwen = model == "qwen-image-2-1"
         outputs.append({
             "model_id": model,
-            "label": "Qwen Image 2.1" if qwen else "ChatGPT image output",
+            "label": "Qwen Image 2.1" if qwen else "ChatGPT Images 2.0 Sol (light)",
             "path": str(path.relative_to(SITE)),
             "alt": ("Qwen" if qwen else "ChatGPT") + f" original output for {record['title']}",
-            "caption": ("Local ComfyUI" if qwen else "Operator-supplied PNG") + f" · {width} × {height}",
+            "caption": ("Local ComfyUI · INT8 ConvRot" if qwen else "Operator model label") + f" · {width} × {height}",
             "width": width, "height": height,
             "duration_seconds": timing["seconds"] if qwen and timing else None,
             "timing_kind": timing["kind"] if qwen and timing else None,

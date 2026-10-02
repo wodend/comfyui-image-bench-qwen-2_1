@@ -66,7 +66,7 @@ Save the exact submitted prompt, ComfyUI workflow/API export, dated setup eviden
 
 ## Next action
 
-Both originals are imported as `output-001.png` under their respective model directories. The site's section is rendered from `benchmarks/records/t2i-outfit-reference.json`. Review the pair against the criteria above before selecting a reference for the I2I outfit edit. The Qwen workflow, API graph, exact prompt and both image hashes are in `site/data/t2i-outfit-reference/`.
+Both originals are imported as `output-001.png` under their respective model directories. The site's section is rendered from `benchmarks/records/t2i-outfit-reference.json`. The Qwen dress original was selected as the shared reference for both I2I outfit-edit cases; its bytes are preserved in `site/assets/images/i2i-change-outfit/inputs/input-002.png`. The Qwen workflow, API graph, exact prompt and both image hashes are in `site/data/t2i-outfit-reference/`.
 
 ## First observed Qwen run — awaiting file import
 
@@ -78,4 +78,4 @@ Embedded metadata reports 25 steps, CFG 1.0, Euler/simple, a 2:3 selector at 2 m
 
 The ChatGPT original is `site/assets/images/t2i-outfit-reference/chatgpt/output-001.png` (1024 × 1536, 1,814,051 bytes; SHA-256 `6962e3029bb702d3d26bb01ef5900b51a88c7f7ae1aaeb6a564941a169a099e5`). It contains no generation metadata. The operator confirmed on 2026-09-30 that the exact submitted prompt text matched Qwen; the ChatGPT settings remain unrecorded.
 
-Both images show burgundy satin, a V-shaped neckline, long sleeves and a tied waist. The Qwen image has straighter sleeves and a longer-looking skirt; the ChatGPT image has gathered shoulders and a shorter-looking skirt. Exact knee length cannot be assessed without visible legs. The garment reference for the I2I edit has not yet been selected.
+Both images show burgundy satin, a V-shaped neckline, long sleeves and a tied waist. The Qwen image has straighter sleeves and a longer-looking skirt; the ChatGPT image has gathered shoulders and a shorter-looking skirt. Exact knee length cannot be assessed without visible legs. The Qwen image was selected as the garment reference for the I2I edit because its long sleeves, wrap neckline, tied belt and complete hem are coherent and visible.

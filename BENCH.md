@@ -8,9 +8,10 @@ Read this file when creating or completing benchmark sections. The goal is a gro
 - The operator’s ChatGPT label is “ChatGPT Images 2.0 Sol (light)”; the PNG has no generation metadata. Do not replace that label with an inferred model version.
 - The exact Qwen workflow, API graph and submitted JSON string were extracted from its PNG. Preserve that submitted string, including its wrapper. Its output is 1184 × 1776, seed 593103825222985, 25 steps, CFG 1, Euler/simple and INT8 ConvRot weights.
 - Timings and peak VRAM for this pair were not recorded. The dated setup snapshot is current host context rather than contemporaneous run evidence.
-- I2I comparisons await input images, prompt, outputs and run records. Earlier informal I2I timing is not a published comparison.
-- `benchmarks/t2i-outfit-reference.md` has both original outputs and one 89.43-second Qwen cold-start observation. The pair is ready for review; the reference for the I2I edit has not been selected. The operator confirmed identical submitted prompt text for both systems; the ChatGPT PNG itself has no generation metadata.
+- The first I2I outfit edit has two portrait cases, each with a Qwen and ChatGPT output. Qwen prompts, workflows and timings were recovered from the original PNGs and recent log. ChatGPT's output-to-portrait pairing follows the supplied file numbers and visual inspection because its PNGs have no embedded workflow metadata. Earlier informal I2I timing is not a published comparison.
+- `benchmarks/t2i-outfit-reference.md` has both original outputs and one 89.43-second Qwen cold-start observation. The Qwen dress was selected as the shared reference for both outfit-edit cases. The operator confirmed identical submitted prompt text for both T2I systems; the ChatGPT PNG itself has no generation metadata.
 - `benchmarks/t2i-goat.md` has both original outputs and a 63.78-second Qwen log observation matched to its original PNG. The pair is ready for review; the reference for the later goat-outfit edit has not been selected.
+- `benchmarks/i2i-change-outfit.md` has four edited originals organized into two portrait cases. The three input copies match their T2I originals by hash, and the site shows the input lineage, prompt and both side-by-side pairs.
 
 ## Iterative workflow
 
@@ -92,6 +93,8 @@ Before handing a task to the operator, fill in these fields in its individual re
 - Intended Qwen workflow/settings and the operator's ChatGPT model label. Record actual settings separately after the runs.
 
 Use the same inputs and prompt for both systems. Agree on the sample count before running; retain every requested sample with consecutive numbers rather than selecting only the most favorable output. Record failed runs and retries. Different systems need not expose equivalent seeds or sampler controls; mark unavailable settings explicitly.
+
+For Qwen Image 2.1 I2I prompts, refer to the numbered workflow inputs with the literal tags `<image1>`, `<image2>`, and so on, as shown in `workflows/image_qwen_image_2_1_image_edit.json`. The first image is the edit target and later images are references. Preserve those tags in the shared prompt sent to both systems; document which original file occupies each slot.
 
 Advance each record through `planned` → `awaiting outputs` → `ready for review` → `published`. In preparation, create the section and run handoff; wait for the user to run it and supply files. On import, verify the originals, collect artifacts and show both outputs. During review, describe adherence and unintended changes using the predefined checks, then build the site. Publishing is a separate user-authorized step. Do not mark a task published merely because its files exist locally.
 

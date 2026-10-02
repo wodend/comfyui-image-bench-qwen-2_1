@@ -1,0 +1,57 @@
+{
+  "path_base": "site/",
+  "files": {
+    "assets/images/i2i-change-outfit/inputs/input-001.png": {
+      "sha256": "79e77e7b807182fbf3c5217aed73463bd6dc1ac054393a86142cb3c4cbcd845e",
+      "bytes": 2284826
+    },
+    "assets/images/i2i-change-outfit/inputs/input-002.png": {
+      "sha256": "61a7f25dfdaf123efd3f5aee3185fa4821561171aaaebe1b6fca6d92b73bd00c",
+      "bytes": 2291120
+    },
+    "assets/images/i2i-change-outfit/inputs/input-003.png": {
+      "sha256": "be476b09b503b7d03be304f6c5d98f4f693c4dd814687400a97dadbc83260755",
+      "bytes": 1900528
+    },
+    "assets/images/i2i-change-outfit/chatgpt/output-001.png": {
+      "sha256": "009a6b598a707acf571517098364294fe86c6b7490b4a383ebc92ddd94991b29",
+      "bytes": 1742861
+    },
+    "assets/images/i2i-change-outfit/chatgpt/output-002.png": {
+      "sha256": "03da6f0fc805bb6a8c20785eeff504353b4318e308dec003317d5e72a666cf42",
+      "bytes": 1908889
+    },
+    "assets/images/i2i-change-outfit/qwen-image-2-1/output-001.png": {
+      "sha256": "ac72e65eed600830089659b0ab3aee902652998878b0761a1f7c00c3aa94bd56",
+      "bytes": 2431142
+    },
+    "assets/images/i2i-change-outfit/qwen-image-2-1/output-002.png": {
+      "sha256": "f456b4e54a511eafe731d6ecb6e09f0cbf984b7aa01ae6dc936b8b1412e63ded",
+      "bytes": 2064959
+    },
+    "data/i2i-change-outfit/prompt.json": {
+      "sha256": "863a43669a737c2180fd5e5c26305a974dc7bb86e17db9e95acb49866f752c2f",
+      "bytes": 1327
+    },
+    "data/i2i-change-outfit/proposed-prompt.json": {
+      "sha256": "863a43669a737c2180fd5e5c26305a974dc7bb86e17db9e95acb49866f752c2f",
+      "bytes": 1327
+    },
+    "data/i2i-change-outfit/workflow-api-chatgpt-portrait.json": {
+      "sha256": "d5e37afce5f10f397f3642ab46f8aa5f3db349f79401fcd81ddc18ceb65dad8d",
+      "bytes": 4411
+    },
+    "data/i2i-change-outfit/workflow-api-qwen-portrait.json": {
+      "sha256": "32bbf73428757a102c24228e3e699e0218982dc11006c45f55e7cbdff473ef98",
+      "bytes": 4659
+    },
+    "data/i2i-change-outfit/workflow-chatgpt-portrait.json": {
+      "sha256": "c9dfbdf0829e3152ead7b230d18643aa4781b55ba6bff88015622560d53cf408",
+      "bytes": 34677
+    },
+    "data/i2i-change-outfit/workflow-qwen-portrait.json": {
+      "sha256": "e9231f7877915e12eea39198680bc5847da2443a6fece3a1a3ed1fbfef7fd475",
+      "bytes": 34697
+    }
+  }
+}

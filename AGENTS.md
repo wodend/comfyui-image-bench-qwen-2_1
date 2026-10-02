@@ -11,7 +11,7 @@ Read this file at the beginning of every conversation about this repository. Rea
 
 `README.md` supplies the public home page. The marked public blocks in `HARDWARE.md` and `METHODS.md` supply the hardware and methods pages. Keep setup facts in those raw context files; do not maintain competing copies in public Markdown. The rest of those files and the agent/site instructions are not rendered into the website.
 
-`site/bench/index.md` supplies only the comparison introduction. `benchmarks/records/<test-id>.json` supplies each task section; its `group` and `order` fields control the hierarchy. The main route is `/bench/`, with task links such as `/bench/#t2i-realistic-character`. The header links Home, Benchmarks, Hardware and Methods; the sidebar lists benchmark task headings, with a separate section for the current page’s headings on other pages.
+`site/bench/index.md` supplies only the comparison introduction. `benchmarks/records/<test-id>.json` supplies each task section; its `group` and `order` fields control the hierarchy. The main route is `/bench/`, with task links such as `/bench/#t2i-realistic-character`. The header links Home, Benchmarks, Hardware and Methods. The benchmark task sidebar appears only on `/bench/`; Hardware and Methods show their own page indexes, and Home has no sidebar.
 
 ## Benchmark rules
 

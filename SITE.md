@@ -13,7 +13,7 @@ Agent/operator instructions for the website. These instructions are not public p
 
 Public blocks are delimited by `<!-- public:start -->` and `<!-- public:end -->`. Keep operational instructions outside these blocks. The builder renders only the listed sources, orders comparison records by `group` and `order`, then copies `site/assets/` and `site/data/`.
 
-The benchmark task sidebar appears only on `/bench/`. Hardware and Methods have indexes of their own headings; Home has no sidebar. Individual benchmark sections begin with the prompt and aspect ratio after the heading (and I2I input images when applicable), followed by original output panels. Run details stay in the expandable section.
+Benchmarks and Methods show an "On this page" index generated from their headings. Home and the one-section Hardware page have no sidebar. Individual benchmark sections begin with the prompt and aspect ratio after the heading (and I2I input images when applicable), followed by original output panels. Run details stay in the expandable section.
 
 Links in public Markdown use paths relative to the generated site root, such as `bench/`, `hardware/`, `methods/`, `assets/images/...` and `data/...`. The builder rebases them for each route, preserving GitHub project-path and custom-domain compatibility. Do not hard-code a host into navigation. Use `/bench/#<test-id>` for direct task links.
 

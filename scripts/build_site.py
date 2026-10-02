@@ -139,13 +139,6 @@ def rebase(html, prefix):
     return re.sub(r'(href|src)="([^"]*)"', replace, html)
 
 
-def task_headings(tokens):
-    for token in tokens:
-        if token["level"] == 2:
-            yield token
-        yield from task_headings(token["children"])
-
-
 class Links(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -213,17 +206,13 @@ def build():
         "methods": public_block("METHODS.md"),
     }
     rendered = {route: render(text) for route, text in pages.items()}
-    task_links = ''.join(f'<li><a href="bench/#{escape(token["id"])}">{escape(token["name"])}</a></li>'
-                         for token in task_headings(rendered["bench"][2]))
     template = Template((SOURCE / "templates/page.html").read_text())
     for route, text in pages.items():
         content, toc, _ = rendered[route]
         nav = ''.join(f'<a href="{target + "/" if target else "./"}"'
                       f'{" aria-current=\"page\"" if target == route else ""}>{label}</a>'
                       for target, label in [("", "Home"), ("bench", "Benchmarks"), ("hardware", "Hardware"), ("methods", "Methods")])
-        if route == "bench":
-            sidebar = '<nav aria-label="Benchmark tasks"><h2>Benchmarks</h2><ul>' + task_links + '</ul></nav>'
-        elif route in ("hardware", "methods"):
+        if route in ("bench", "methods"):
             sidebar = '<nav class="page-index" aria-label="On this page"><h2>On this page</h2>' + toc + '</nav>'
         else:
             sidebar = ''

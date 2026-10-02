@@ -3,14 +3,11 @@
 Read this file for the benchmark host and its inventory scripts. The public block below is the hardware page’s source of truth. Change this dated snapshot only after gathering a new report; retain earlier run records.
 
 <!-- public:start -->
-# Benchmark hardware
-
-Local Qwen Image 2.1 runs use an NVIDIA RTX 3070 with 8 GiB of VRAM. The system below was checked on **2026-09-26**.
-
-## Host specifications
+# Host specifications
 
 | Component | Detail |
 | --- | --- |
+| Snapshot date | 2026-09-26 |
 | CPU | AMD Ryzen 9 5900X 12-Core Processor |
 | CPU cores | 12 physical, 24 logical |
 | System RAM | 46 GiB |
@@ -20,10 +17,6 @@ Local Qwen Image 2.1 runs use an NVIDIA RTX 3070 with 8 GiB of VRAM. The system 
 | Operating system | CachyOS |
 | Kernel | Linux 7.2.6-1-cachyos |
 | System Python | 3.14.7 |
-
-## What this snapshot describes
-
-These specifications describe the local benchmark host. They are not minimum requirements, and the snapshot is not a contemporaneous inventory for every image shown. The [methods page](methods/) describes the model files and software used.
 <!-- public:end -->
 
 ## Capture host information
